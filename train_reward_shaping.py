@@ -70,7 +70,7 @@ trainer = GRPOTrainer(
     model=model,
     reward_funcs=reward_fn_shaped,
     args=config,
-    train_dataset=dataset["train"].select(range(500)),
+    train_dataset=dataset["train"],
     processing_class=tokenizer,
 )
 

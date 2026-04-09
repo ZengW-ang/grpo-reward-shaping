@@ -51,7 +51,8 @@ config = GRPOConfig(
     max_completion_length=512,
     learning_rate=1e-6,
     logging_steps=10,
-    save_steps=9999,
+    save_steps=500,
+    save_total_limit=1,
     report_to="none",
 )
 
@@ -59,10 +60,10 @@ trainer = GRPOTrainer(
     model=model,
     reward_funcs=reward_fn,
     args=config,
-    train_dataset=dataset["train"].select(range(500)),
+    train_dataset=dataset["train"],
     processing_class=tokenizer,
 )
 
-trainer.train()
+trainer.train(resume_from_checkpoint="/root/autodl-tmp/grpo_output/checkpoint-2500")
 trainer.save_model("./output/final")
 print("Done!")
